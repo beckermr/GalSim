@@ -31,6 +31,7 @@ API Changes
 Config Updates
 --------------
 
+- Added option to specify a dtype other than np.float32 for images built by config.
 
 
 New Features
