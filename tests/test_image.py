@@ -1688,6 +1688,12 @@ def test_Image_inplace_add():
                 err_msg="Inplace add in Image class (dictionary call) does"
                 +" not match reference for dtype = "+str(types[i]))
 
+        # Check a calculation where we should expect some rounding errors.
+        # This is especially bad for integer types, since 5.9999999996 can become 5.
+        image3 = galsim.Image(ref_array.astype(types[i]))
+        image3 += (image2 / 17) * 17
+        np.testing.assert_allclose(image3.array, image1.array)
+
         # Then try using the eval command to mimic use via ImageD, ImageF etc.
         image_init_func = eval("galsim.Image"+tchar[i])
         slice_array = large_array.copy().astype(types[i])[::3,::2]
@@ -1725,6 +1731,11 @@ def test_Image_inplace_subtract():
                 err_msg="Inplace subtract in Image class (dictionary call) does"
                 +" not match reference for dtype = "+str(types[i]))
 
+        # Check a calculation where we should expect some rounding errors.
+        image3 = galsim.Image(2 * ref_array.astype(types[i]))
+        image3 -= (image2 / 17) * 17
+        np.testing.assert_allclose(image3.array, image1.array)
+
         # Then try using the eval command to mimic use via ImageD, ImageF etc.
         image_init_func = eval("galsim.Image"+tchar[i])
         slice_array = (2*large_array).astype(types[i])[::3,::2]
@@ -1761,6 +1772,11 @@ def test_Image_inplace_multiply():
         np.testing.assert_array_equal((2 * ref_array**2).astype(types[i]), image1.array,
                 err_msg="Inplace multiply in Image class (dictionary call) does"
                 +" not match reference for dtype = "+str(types[i]))
+
+        # Check a calculation where we should expect some rounding errors.
+        image3 = galsim.Image(ref_array.astype(types[i]))
+        image3 *= (image2 / 17) * 17
+        np.testing.assert_allclose(image3.array, image1.array)
 
         # Then try using the eval command to mimic use via ImageD, ImageF etc.
         image_init_func = eval("galsim.Image"+tchar[i])
@@ -1800,6 +1816,11 @@ def test_Image_inplace_divide():
                 decimal=decimal,
                 err_msg="Inplace divide in Image class (dictionary call) does"
                 +" not match reference for dtype = "+str(types[i]))
+
+        # Check a calculation where we should expect some rounding errors.
+        image3 = galsim.Image((2 * (ref_array + 1)**2).astype(types[i]))
+        image3 /= (image2 / 17) * 17
+        np.testing.assert_allclose(image3.array, image1.array)
 
         # Then try using the eval command to mimic use via ImageD, ImageF etc.
         image_init_func = eval("galsim.Image"+tchar[i])
@@ -1852,6 +1873,11 @@ def test_Image_inplace_scalar_add():
         np.testing.assert_array_equal((ref_array + 1).astype(types[i]), image1.array,
                 err_msg="Inplace scalar add in Image class (dictionary "
                 +"call) does not match reference for dtype = "+str(types[i]))
+
+        image3 = galsim.Image(ref_array.astype(types[i]))
+        image3 += 1.
+        np.testing.assert_allclose(image3.array, image1.array)
+
         # Then try using the eval command to mimic use via ImageD, ImageF etc.
         image_init_func = eval("galsim.Image"+tchar[i])
         slice_array = large_array.copy().astype(types[i])[::3,::2]
@@ -1873,6 +1899,11 @@ def test_Image_inplace_scalar_subtract():
         np.testing.assert_array_equal((ref_array - 1).astype(types[i]), image1.array,
                 err_msg="Inplace scalar subtract in Image class (dictionary "
                 +"call) does not match reference for dtype = "+str(types[i]))
+
+        image3 = galsim.Image(ref_array.astype(types[i]))
+        image3 -= 1.
+        np.testing.assert_allclose(image3.array, image1.array)
+
         # Then try using the eval command to mimic use via ImageD, ImageF etc.
         image_init_func = eval("galsim.Image"+tchar[i])
         slice_array = large_array.copy().astype(types[i])[::3,::2]
@@ -1895,6 +1926,11 @@ def test_Image_inplace_scalar_multiply():
         np.testing.assert_array_equal(image1.array, image2.array,
                 err_msg="Inplace scalar multiply in Image class (dictionary "
                 +"call) does not match reference for dtype = "+str(types[i]))
+
+        image3 = galsim.Image(ref_array.astype(types[i]))
+        image3 *= 2.
+        np.testing.assert_allclose(image3.array, image1.array)
+
         # Then try using the eval command to mimic use via ImageD, ImageF etc.
         image_init_func = eval("galsim.Image"+tchar[i])
         slice_array = large_array.copy().astype(types[i])[::3,::2]
@@ -1918,6 +1954,11 @@ def test_Image_inplace_scalar_divide():
         np.testing.assert_array_equal(image1.array, image2.array,
                 err_msg="Inplace scalar divide in Image class (dictionary "
                 +"call) does not match reference for dtype = "+str(types[i]))
+
+        image3 = galsim.Image((2 * ref_array).astype(types[i]))
+        image3 /= 2.
+        np.testing.assert_allclose(image3.array, image2.array)
+
         # Then try using the eval command to mimic use via ImageD, ImageF etc.
         image_init_func = eval("galsim.Image"+tchar[i])
         slice_array = (2*large_array).astype(types[i])[::3,::2]
@@ -1940,6 +1981,10 @@ def test_Image_inplace_scalar_pow():
         np.testing.assert_array_almost_equal(image1.array, image2.array, decimal=4,
             err_msg="Inplace scalar pow in Image class (dictionary "
             +"call) does not match reference for dtype = "+str(types[i]))
+
+        image3 = galsim.Image(ref_array.astype(types[i]))
+        image3 **= 2.
+        np.testing.assert_allclose(image3.array, image1.array)
 
         # Then try using the eval command to mimic use via ImageD, ImageF etc.
         image_init_func = eval("galsim.Image"+tchar[i])
