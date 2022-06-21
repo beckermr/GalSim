@@ -36,6 +36,7 @@ Config Updates
 - Let a flux item for an object with an SED normalize the SED for the bandpass being
   simulated.
 - Fixed some edge cases where the created image could not have the requested wcs.
+- Fixed some errors in PhotonDCR usage in the config layer.
 
 
 New Features
