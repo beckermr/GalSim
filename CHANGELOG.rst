@@ -32,6 +32,7 @@ Config Updates
 --------------
 
 - Added option to specify a dtype other than np.float32 for images built by config.
+- Fixed inconsistent behavior of image.world_pos in image type=Single.
 
 
 New Features
