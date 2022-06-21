@@ -532,6 +532,7 @@ def DrawBasic(prof, image, method, offset, config, base, logger, **kwargs):
     except Exception as e:
         logger.debug('obj %d: prof = %r', base.get('obj_num',0), prof)
         raise
+    image.wcs = base['wcs']   # in case we used a local jacobian above.
     logger.debug('obj %d: added_flux = %s',base.get('obj_num',0), image.added_flux)
     return image
 

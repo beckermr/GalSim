@@ -35,6 +35,7 @@ Config Updates
 - Fixed inconsistent behavior of image.world_pos in image type=Single.
 - Let a flux item for an object with an SED normalize the SED for the bandpass being
   simulated.
+- Fixed some edge cases where the created image could not have the requested wcs.
 
 
 New Features
@@ -57,6 +58,6 @@ Bug Fixes
 
 - Fixed error in InterpolatedImage.withGSParams not correctly updating stepk and maxk
   if the updated parameters merited it. (#1154)
-- Fix error in ChromaticSum photon shooting when n_photons is explicitly given. (#1156)
+- Fixed error in ChromaticSum photon shooting when n_photons is explicitly given. (#1156)
 - Fixed some rounding errors that could happen when rendering integer-typed images
   (e.g. ImageI) that could cause values to be off by 1.
